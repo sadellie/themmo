@@ -19,7 +19,7 @@ Themmo is not a theming engine.
 - Animated color scheme changes
 - DataStore support
 - Minimum API level: 21
-- 
+
 # How to install
 ## If you use Android Studio:
 Add this project as submodule to your git. Follow this [tutorial](https://deepakpk.medium.com/how-to-add-a-git-android-library-project-as-a-sub-module-c713a653ab1f).
