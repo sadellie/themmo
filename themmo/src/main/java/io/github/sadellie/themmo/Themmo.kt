@@ -1,4 +1,4 @@
-package com.sadellie.themmo
+package io.github.sadellie.themmo
 
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.AnimationSpec

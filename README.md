@@ -21,25 +21,21 @@ Themmo is not a theming engine.
 - Minimum API level: 21
 
 # How to install
-## If you use Android Studio:
-Add this project as submodule to your git. Follow this [tutorial](https://deepakpk.medium.com/how-to-add-a-git-android-library-project-as-a-sub-module-c713a653ab1f).
+1. Add the JitPack repository to your build file
+```kotlin
+repositories {
+	...
+	maven( url = "https://jitpack.io" )
+}
+```
 
-OR
-
-1. Download source code
-2. Unzip downloaded archive somewhere
-3. Open your project in Android Studio
-4. Follow the instructions by
-   [Android Developers](https://developer.android.com/studio/projects/add-app-module#ImportAModule).
-5. Recommended, but not required. Clear cache and restart your IDE.
-
-## If you do not use Android Studio:
-1. Download Android Studio
-2. Follow instructions for Android Studio users
-
-## Why not MavenCentral?
-I have not figured that out yet, sorry for inconvenience. Also, chances are that Themmo is gonna be used by me only, lol.
-
+2. Add the dependency. Replace `Tag` with the latest version from [releases](https://github.com/sadellie/themmo/releases/latest) section(i.e. `0.0.2`).
+```kotlin
+dependencies {
+	...
+	implementation("com.github.sadellie:themmo:Tag")
+}
+```
 # Basic usage
 Themmo composable passes down a ThemmoController that is used to manipulate theming for all composables inside of Themmo.
 

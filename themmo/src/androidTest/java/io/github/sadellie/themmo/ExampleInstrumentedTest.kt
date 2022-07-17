@@ -1,4 +1,4 @@
-package com.sadellie.themmo
+package io.github.sadellie.themmo
 
 import android.content.Context
 import androidx.compose.material3.darkColorScheme

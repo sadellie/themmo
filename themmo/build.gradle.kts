@@ -1,9 +1,25 @@
 plugins {
     id("com.android.library")
     id("kotlin-android")
+    id("maven-publish")
+}
+
+publishing {
+    publications {
+        register<MavenPublication>("release") {
+            groupId = "io.github.sadellie"
+            artifactId = "themmo"
+            version = "0.0.2"
+
+            afterEvaluate {
+                from(components["release"])
+            }
+        }
+    }
 }
 
 android {
+    namespace = "io.github.sadellie.themmo"
     compileSdk = 32
 
     defaultConfig {
@@ -16,6 +32,12 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
+    }
+
+    publishing {
+        singleVariant("release") {
+            withSourcesJar()
+        }
     }
 
     buildTypes {

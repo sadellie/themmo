@@ -1,4 +1,4 @@
-package com.sadellie.themmo
+package io.github.sadellie.themmo
 
 import android.annotation.SuppressLint
 import android.content.Context

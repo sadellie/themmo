@@ -25,10 +25,10 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.sadellie.themmo.ThemingMode
-import com.sadellie.themmo.Themmo
-import com.sadellie.themmo.ThemmoController
-import com.sadellie.themmo.rememberThemmoController
+import io.github.sadellie.themmo.ThemingMode
+import io.github.sadellie.themmo.Themmo
+import io.github.sadellie.themmo.ThemmoController
+import io.github.sadellie.themmo.rememberThemmoController
 import com.sadellie.themmosample.ui.theme.DarkColorScheme
 import com.sadellie.themmosample.ui.theme.LightColorScheme
 
