@@ -2,6 +2,8 @@ package io.github.sadellie.themmo
 
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.AnimationSpec
+import androidx.compose.animation.core.CubicBezierEasing
+import androidx.compose.animation.core.Easing
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.ColorScheme
@@ -24,7 +26,7 @@ import androidx.compose.ui.platform.LocalContext
 fun Themmo(
     themmoController: ThemmoController,
     typography: Typography,
-    animationSpec: AnimationSpec<Color> = tween(durationMillis = 450),
+    animationSpec: AnimationSpec<Color> = tween(durationMillis = 150),
     content: @Composable (ThemmoController) -> Unit
 ) {
     val context = LocalContext.current
