@@ -1,7 +1,9 @@
-![Themmo](./images/readme.header.svg)
+![Themmo](content/images/readme.header.svg)
 
 # Disclaimer
 This project is just a proof-of-concept. Currently the library is used by me only. If you have somehow ended up finding this repository and want to use Themmo, feel free to do so.
+
+<img src="content/themmo.gif" width="50%" />
 
 # About
 Themmo is a special composable component that replaces commonly used MaterialTheme composable. Main goal of this project is to make a universal way of dealing with theming in Compose.
