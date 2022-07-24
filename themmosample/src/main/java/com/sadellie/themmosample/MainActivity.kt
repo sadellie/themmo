@@ -28,21 +28,12 @@ import androidx.compose.ui.unit.dp
 import io.github.sadellie.themmo.ThemingMode
 import io.github.sadellie.themmo.Themmo
 import io.github.sadellie.themmo.ThemmoController
-import io.github.sadellie.themmo.rememberThemmoController
-import com.sadellie.themmosample.ui.theme.DarkColorScheme
-import com.sadellie.themmosample.ui.theme.LightColorScheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            Themmo(
-                themmoController = rememberThemmoController(
-                    lightColorScheme = LightColorScheme,
-                    darkColorScheme = DarkColorScheme
-                ),
-                typography = MaterialTheme.typography
-            ) {
+            Themmo {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background

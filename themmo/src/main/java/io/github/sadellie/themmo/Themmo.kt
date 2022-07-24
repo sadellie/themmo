@@ -24,8 +24,8 @@ import androidx.compose.ui.platform.LocalContext
  */
 @Composable
 fun Themmo(
-    themmoController: ThemmoController,
-    typography: Typography,
+    themmoController: ThemmoController = rememberThemmoController(),
+    typography: Typography = Typography(),
     animationSpec: AnimationSpec<Color> = tween(durationMillis = 150),
     content: @Composable (ThemmoController) -> Unit
 ) {
