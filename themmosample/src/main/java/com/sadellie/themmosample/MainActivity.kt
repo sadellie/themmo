@@ -84,8 +84,8 @@ fun ExampleSettingScreen(themmoController: ThemmoController) {
                 Switch(
                     checked = themmoController.isDynamicThemeEnabled,
                     onCheckedChange = {
-                            themmoController.enableDynamicTheme(it)
-                                            },
+                        themmoController.enableDynamicTheme(it)
+                    },
                 )
             }
         }
