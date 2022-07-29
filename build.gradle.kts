@@ -4,10 +4,8 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        with(Deps.Gradle) {
-            classpath(gradle)
-            classpath(kotlin)
-        }
+        classpath("com.android.tools.build:gradle:7.2.1")
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.21")
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.build.gradle.kts files
     }
