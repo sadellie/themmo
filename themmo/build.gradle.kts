@@ -20,11 +20,11 @@ publishing {
 
 android {
     namespace = "io.github.sadellie.themmo"
-    compileSdk = 32
+    compileSdk = 33
 
     defaultConfig {
         minSdk = 21
-        targetSdk = 32
+        targetSdk = 33
 
         aarMetadata {
             minCompileSdk = 29
@@ -77,9 +77,8 @@ android {
 
 dependencies {
     implementation("androidx.core:core-ktx:1.8.0")
-    testImplementation("org.junit.jupiter:junit-jupiter")
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.3")
-    implementation("androidx.compose.ui:ui:1.3.0-alpha02")
-    implementation("androidx.compose.material3:material3:1.0.0-alpha15")
+    implementation("androidx.compose.ui:ui:1.3.0-alpha03")
+    implementation("androidx.compose.material3:material3:1.0.0-alpha16")
 }
