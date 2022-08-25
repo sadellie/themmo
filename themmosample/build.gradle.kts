@@ -54,7 +54,7 @@ android {
 dependencies {
     implementation("androidx.core:core-ktx:1.8.0")
     implementation("androidx.compose.ui:ui:1.3.0-alpha03")
-    implementation("androidx.compose.ui:ui-tooling-preview:1.3.0-alpha03")
+    implementation("androidx.compose.ui:ui-tooling-preview:1.3.0-beta01")
     debugImplementation("androidx.compose.ui:ui-tooling:1.3.0-alpha03")
     implementation("androidx.compose.material3:material3:1.0.0-alpha16")
     implementation("androidx.activity:activity-compose:1.5.1")
