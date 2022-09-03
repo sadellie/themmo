@@ -1,5 +1,7 @@
 ![Themmo](content/images/readme.header.svg)
 
+[![](https://jitpack.io/v/sadellie/themmo.svg)](https://jitpack.io/#sadellie/themmo)
+
 # Disclaimer
 This project is just a proof-of-concept. Currently the library is used by me only. If you have somehow ended up finding this repository and want to use Themmo, feel free to do so.
 
