@@ -52,7 +52,7 @@ android {
 }
 
 dependencies {
-    implementation("androidx.core:core-ktx:1.8.0")
+    implementation("androidx.core:core-ktx:1.9.0")
     implementation("androidx.compose.ui:ui:1.3.0-beta01")
     implementation("androidx.compose.ui:ui-tooling-preview:1.3.0-beta01")
     debugImplementation("androidx.compose.ui:ui-tooling:1.3.0-beta01")

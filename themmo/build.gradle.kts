@@ -76,7 +76,7 @@ android {
 }
 
 dependencies {
-    implementation("androidx.core:core-ktx:1.8.0")
+    implementation("androidx.core:core-ktx:1.9.0")
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.3")
     implementation("androidx.compose.ui:ui:1.3.0-beta01")
