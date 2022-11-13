@@ -56,6 +56,7 @@ fun ExampleSettingScreen(themmoController: ThemmoController) {
                 expanded = dropDownExpanded, onExpandedChange = { dropDownExpanded = it }
             ) {
                 OutlinedTextField(
+                    modifier = Modifier.menuAnchor(),
                     value = currentOption.name,
                     onValueChange = {},
                     readOnly = true,

@@ -9,7 +9,7 @@ publishing {
         register<MavenPublication>("release") {
             groupId = "io.github.sadellie"
             artifactId = "themmo"
-            version = "0.0.6"
+            version = "0.0.8"
 
             afterEvaluate {
                 from(components["release"])
@@ -18,6 +18,7 @@ publishing {
     }
 }
 
+@Suppress("UnstableApiUsage")
 android {
     namespace = "io.github.sadellie.themmo"
     compileSdk = 33
@@ -76,9 +77,9 @@ android {
 }
 
 dependencies {
-    implementation("androidx.core:core-ktx:1.8.0")
+    implementation("androidx.core:core-ktx:1.9.0")
     testImplementation("junit:junit:4.13.2")
-    androidTestImplementation("androidx.test.ext:junit:1.1.3")
-    implementation("androidx.compose.ui:ui:1.3.0-beta02")
-    implementation("androidx.compose.material3:material3:1.0.0-beta02")
+    androidTestImplementation("androidx.test.ext:junit:1.1.4")
+    implementation("androidx.compose.ui:ui:1.4.0-alpha02")
+    implementation("androidx.compose.material3:material3:1.1.0-alpha02")
 }
