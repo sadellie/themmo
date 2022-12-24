@@ -11,38 +11,9 @@ import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Stable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.luminance
-
-/**
- * Makes color brighter
- *
- * @param ratio Ratio from 0 to 1. 1 means white.
- * @return Brighter version of this color
- */
-@Stable
-private fun Color.shiftTo255(ratio: Float): Color {
-    return this.copy(
-        alpha,
-        red + (1.0f - red) * ratio,
-        green + (1.0f - green) * ratio,
-        blue + (1.0f - blue) * ratio,
-    )
-}
-
-/**
- * Makes color darker
- *
- * @param ratio Ratio from 0 to 1. 1 means black.
- * @return Darker version of this color
- */
-@Stable
-private fun Color.shiftTo0(ratio: Float): Color {
-    return this.copy(
-        alpha,
-        red * (1.0f - ratio),
-        green * (1.0f - ratio),
-        blue * (1.0f - ratio),
-    )
-}
+import androidx.compose.ui.graphics.toArgb
+import com.shopgun.android.materialcolorcreator.MaterialColorImpl
+import com.shopgun.android.materialcolorcreator.Shade
 
 /**
  * Decides which colors fits the best for the color that is used as a background
@@ -70,26 +41,31 @@ fun extractWallpaperPrimary(context: Context): WallpaperColors? {
  * @param primary Color from which colorScheme will be generated from
  * @return Light colorScheme
  */
-fun dynamicLightThemmo(
-    primary: Color
-): ColorScheme {
-    val secondary: Color = primary.shiftTo255(0.5f)
-    val background = primary.shiftTo255(0.9f)
-    val onBackground = background.getAppropriateTextColor()
+fun dynamicLightThemmo(primary: Color): ColorScheme {
+    val materialColor = MaterialColorImpl(primary.toArgb())
+    val base = Color(materialColor.value)
+    val shade50 = Color(materialColor.getColor(Shade.Shade50).value)
+    val shade100 = Color(materialColor.getColor(Shade.Shade100).value)
+    val shade200 = Color(materialColor.getColor(Shade.Shade200).value)
+    val shade300 = Color(materialColor.getColor(Shade.Shade300).value)
+    val shade400 = Color(materialColor.getColor(Shade.Shade400).value)
+    val shade700 = Color(materialColor.getColor(Shade.Shade700).value)
+    val onShade700 = shade50.getAppropriateTextColor()
 
     return lightColorScheme(
-        primary = primary,
-        onPrimary = primary.getAppropriateTextColor(),
-        onPrimaryContainer = primary.shiftTo0(0.7f),
-        secondaryContainer = secondary,
-        onSecondaryContainer = secondary.getAppropriateTextColor(),
-        background = background,
-        onBackground = onBackground,
-        surface = background,
-        onSurface = onBackground,
-        surfaceVariant = primary.shiftTo255(0.5f),
-        onSurfaceVariant = primary.shiftTo0(0.80f),
-        outline = primary.shiftTo0(0.8f),
+        primary = base,
+        onPrimary = base.getAppropriateTextColor(),
+        primaryContainer = shade200,
+        onPrimaryContainer = shade300,
+        secondaryContainer = shade400,
+        onSecondaryContainer = shade400.getAppropriateTextColor(),
+        background = shade50,
+        onBackground = onShade700,
+        surface = shade50,
+        onSurface = onShade700,
+        surfaceVariant = shade100,
+        onSurfaceVariant = shade100.getAppropriateTextColor(),
+        outline = shade700,
     )
 }
 
@@ -100,22 +76,28 @@ fun dynamicLightThemmo(
  * @return Dark colorScheme
  */
 fun dynamicDarkThemmo(primary: Color): ColorScheme {
-    val secondary: Color = primary.shiftTo0(0.7f)
-    val background = primary.shiftTo0(0.9f)
-    val onBackground = background.getAppropriateTextColor()
+    val primaryOne = MaterialColorImpl(primary.toArgb())
+    val shade100 = Color(primaryOne.getColor(Shade.Shade100).value)
+    val shade200 = Color(primaryOne.getColor(Shade.Shade200).value)
+    val shade300 = Color(primaryOne.getColor(Shade.Shade300).value)
+    val shade400 = Color(primaryOne.getColor(Shade.Shade400).value)
+    val shade700 = Color(primaryOne.getColor(Shade.Shade700).value)
+    val shade900 = Color(primaryOne.getColor(Shade.Shade900).value)
+    val onShade900 = shade900.getAppropriateTextColor()
 
     return darkColorScheme(
-        primary = primary,
-        onPrimary = primary.getAppropriateTextColor(),
-        onPrimaryContainer = primary.shiftTo255(0.7f),
-        secondaryContainer = secondary,
-        onSecondaryContainer = secondary.getAppropriateTextColor(),
-        background = background,
-        onBackground = onBackground,
-        surface = background,
-        onSurface = onBackground,
-        surfaceVariant = primary.shiftTo0(0.5f),
-        onSurfaceVariant = primary.shiftTo255(0.80f),
-        outline = primary.shiftTo255(0.8f),
+        primary = shade100,
+        onPrimary = Color(primaryOne.value).getAppropriateTextColor(),
+        primaryContainer = shade700,
+        onPrimaryContainer = shade300,
+        secondaryContainer = shade400,
+        onSecondaryContainer = shade400.getAppropriateTextColor(),
+        background = shade900,
+        onBackground = onShade900,
+        surface = shade900,
+        onSurface = onShade900,
+        surfaceVariant = shade700,
+        onSurfaceVariant = shade700.getAppropriateTextColor(),
+        outline = shade200,
     )
 }
