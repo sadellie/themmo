@@ -58,14 +58,15 @@ fun dynamicLightThemmo(primary: Color): ColorScheme {
         primaryContainer = shade200,
         onPrimaryContainer = shade300,
         secondaryContainer = shade400,
-        onSecondaryContainer = shade400.getAppropriateTextColor(),
+        onSecondaryContainer = shade200.getAppropriateTextColor(),
         background = shade50,
         onBackground = onShade700,
         surface = shade50,
         onSurface = onShade700,
         surfaceVariant = shade100,
-        onSurfaceVariant = shade100.getAppropriateTextColor(),
+        onSurfaceVariant = shade50.getAppropriateTextColor(),
         outline = shade700,
+        inverseOnSurface = shade100,
     )
 }
 
@@ -76,28 +77,30 @@ fun dynamicLightThemmo(primary: Color): ColorScheme {
  * @return Dark colorScheme
  */
 fun dynamicDarkThemmo(primary: Color): ColorScheme {
-    val primaryOne = MaterialColorImpl(primary.toArgb())
-    val shade100 = Color(primaryOne.getColor(Shade.Shade100).value)
-    val shade200 = Color(primaryOne.getColor(Shade.Shade200).value)
-    val shade300 = Color(primaryOne.getColor(Shade.Shade300).value)
-    val shade400 = Color(primaryOne.getColor(Shade.Shade400).value)
-    val shade700 = Color(primaryOne.getColor(Shade.Shade700).value)
-    val shade900 = Color(primaryOne.getColor(Shade.Shade900).value)
-    val onShade900 = shade900.getAppropriateTextColor()
+    val materialColor = MaterialColorImpl(primary.toArgb())
+    val base = Color(materialColor.getColor(Shade.Shade300).value)
+    val shade50 = Color(0xFF161616)
+    val shade900 = Color(materialColor.getColor(Shade.Shade900).value)
+    val shade800 = Color(materialColor.getColor(Shade.Shade800).value)
+    val shade600 = Color(materialColor.getColor(Shade.Shade600).value)
+    val shade500 = Color(materialColor.getColor(Shade.Shade500).value)
+    val shade200 = Color(materialColor.getColor(Shade.Shade200).value)
+    val onShade700 = Color(0xFFe1e3dd)
 
     return darkColorScheme(
-        primary = shade100,
-        onPrimary = Color(primaryOne.value).getAppropriateTextColor(),
-        primaryContainer = shade700,
-        onPrimaryContainer = shade300,
-        secondaryContainer = shade400,
-        onSecondaryContainer = shade400.getAppropriateTextColor(),
-        background = shade900,
-        onBackground = onShade900,
-        surface = shade900,
-        onSurface = onShade900,
-        surfaceVariant = shade700,
-        onSurfaceVariant = shade700.getAppropriateTextColor(),
+        primary = base,
+        onPrimary = base.getAppropriateTextColor(),
+        primaryContainer = shade800,
+        onPrimaryContainer = shade600,
+        secondaryContainer = shade500,
+        onSecondaryContainer = shade500.getAppropriateTextColor(),
+        background = shade50,
+        onBackground = onShade700,
+        surface = shade50,
+        onSurface = onShade700,
+        surfaceVariant = shade900,
+        onSurfaceVariant = shade50.getAppropriateTextColor(),
         outline = shade200,
+        inverseOnSurface = shade900,
     )
 }
