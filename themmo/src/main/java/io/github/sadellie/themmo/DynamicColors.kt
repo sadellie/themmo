@@ -104,7 +104,7 @@ private fun Color.shade100() = this.getModifiedColor(100f)
 private fun Color.shade200() = this.getModifiedColor(200f)
 private fun Color.shade300() = this.getModifiedColor(300f)
 private fun Color.shade400() = this.getModifiedColor(400f)
-// private fun Color.shade500() = this.getModifiedColor(500f) not needed
+private fun Color.shade500() = this.getModifiedColor(500f)
 private fun Color.shade600() = this.getModifiedColor(600f)
 private fun Color.shade700() = this.getModifiedColor(700f)
 private fun Color.shade800() = this.getModifiedColor(800f)
@@ -175,7 +175,7 @@ fun dynamicDarkThemmo(primary: Color): ColorScheme {
     val shade900 = primary.shade900()
     val shade800 = primary.shade800()
     val shade600 = primary.shade600()
-    val shade500 = primary.shade50()
+    val shade500 = primary.shade500()
     val shade200 = primary.shade200()
     val onShade700 = Color(0xFFe1e3dd)
 
