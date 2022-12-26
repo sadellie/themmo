@@ -82,5 +82,4 @@ dependencies {
     androidTestImplementation("androidx.test.ext:junit:1.1.4")
     implementation("androidx.compose.ui:ui:1.4.0-alpha03")
     implementation("androidx.compose.material3:material3:1.1.0-alpha03")
-    implementation("com.github.tjek:material-color-creator-android:b1da007968")
 }
