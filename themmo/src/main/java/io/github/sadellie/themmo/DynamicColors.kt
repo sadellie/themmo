@@ -107,7 +107,7 @@ private fun Color.shade400() = this.getModifiedColor(400f)
 private fun Color.shade500() = this.getModifiedColor(500f)
 private fun Color.shade600() = this.getModifiedColor(600f)
 private fun Color.shade700() = this.getModifiedColor(700f)
-private fun Color.shade800() = this.getModifiedColor(800f)
+// private fun Color.shade800() = this.getModifiedColor(800f)
 private fun Color.shade900() = this.getModifiedColor(900f)
 
 /**
@@ -170,10 +170,10 @@ fun dynamicLightThemmo(primary: Color): ColorScheme {
  * @return Dark colorScheme
  */
 fun dynamicDarkThemmo(primary: Color): ColorScheme {
-    val base = primary.shade300()
+    val base = primary.shade200()
     val shade50 = Color(0xFF161616)
     val shade900 = primary.shade900()
-    val shade800 = primary.shade800()
+    val shade300 = primary.shade300()
     val shade600 = primary.shade600()
     val shade500 = primary.shade500()
     val shade200 = primary.shade200()
@@ -182,10 +182,10 @@ fun dynamicDarkThemmo(primary: Color): ColorScheme {
     return darkColorScheme(
         primary = base,
         onPrimary = base.getAppropriateTextColor(),
-        primaryContainer = shade800,
+        primaryContainer = shade300,
         onPrimaryContainer = shade600,
         secondaryContainer = shade500,
-        onSecondaryContainer = shade500.getAppropriateTextColor(),
+        onSecondaryContainer = shade300.getAppropriateTextColor(),
         background = shade50,
         onBackground = onShade700,
         surface = shade50,
