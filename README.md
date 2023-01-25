@@ -2,6 +2,10 @@
 
 [![](https://jitpack.io/v/sadellie/themmo.svg)](https://jitpack.io/#sadellie/themmo)
 
+# Tutorial and usage showcase
+## [*Click here to read the article on Medium!*](https://medium.com/@sadellie.dev/how-to-simplify-theming-in-your-app-c2edf3203fc2)
+
+
 # Disclaimer
 This project is just a proof-of-concept. Currently the library is used by me only. If you have somehow ended up finding this repository and want to use Themmo, feel free to do so.
 
