@@ -81,6 +81,12 @@ When set to `true` will:
 ### AMOLED theming preference
 When set to `true` will change background color to black. Works only when dark color scheme is used, you don't need to worry about it.
 
+### Custom color
+When set to `Color.Unspecified` will not be used.
+When set to anything other than `Color.Unspecified` (`Color.Red`, for example) will use custom method to generate color scheme for provided color.
+
+***NOTE:*** Custom color is used only when Dynamic color is set to `false`.
+
 # Sample apps
 This repository has one sample application. It covers the most basic usage: how to switch theming options.
 For a more advanced usage checkout [Apps built with Themmo section](#apps-built-with-themmo).
@@ -128,7 +134,7 @@ There are still some features, that I will probably add.
 3. Something else?
 
 # Apps built with Themmo
-As of now Themmo is used only in my app called Unitto. Themmo was originally a part of it, but has expanded into it's own project. I recommend using this project as a sample for DataStore integration.
+As of now Themmo is used only in my app called [Unitto](https://github.com/sadellie/unitto). Themmo was originally a part of it, but has expanded into it's own project. I recommend using this project as a sample for DataStore integration.
 
 # Other theming libraries
 Checkout [ThemeEngine](https://github.com/prathameshmm02/ThemeEngine), maybe it better suits your needs.

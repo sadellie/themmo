@@ -17,11 +17,13 @@ import androidx.compose.runtime.saveable.mapSaver
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.isSpecified
 
 // Constants for Saver
 private const val AMOLED_ENABLED = "AMOLED_ENABLED"
 private const val THEMING_MODE = "THEMING_MODE"
 private const val DYNAMIC_ENABLED = "DYNAMIC_ENABLED"
+private const val CUSTOM_COLOR = "CUSTOM_COLOR"
 
 /**
  * Controller that holds current theming options and provides methods to manipulate them.
@@ -38,6 +40,7 @@ class ThemmoController(
     themingMode: ThemingMode,
     dynamicThemeEnabled: Boolean,
     amoledThemeEnabled: Boolean,
+    customColor: Color
 ) {
     var currentThemingMode: ThemingMode by mutableStateOf(themingMode)
         private set
@@ -46,6 +49,9 @@ class ThemmoController(
         private set
 
     var isAmoledThemeEnabled: Boolean by mutableStateOf(amoledThemeEnabled)
+        private set
+
+    var currentCustomColor: Color by mutableStateOf(customColor)
         private set
 
     fun setThemingMode(mode: ThemingMode) {
@@ -59,6 +65,10 @@ class ThemmoController(
 
     fun enableAmoledTheme(enable: Boolean) {
         isAmoledThemeEnabled = enable
+    }
+
+    fun setCustomColor(color: Color) {
+        currentCustomColor = color
     }
 
     internal fun provideColorScheme(
@@ -97,6 +107,9 @@ class ThemmoController(
                 )
                 dynamicLightThemmo(primary)
             }
+            !isDynamicThemeEnabled and currentCustomColor.isSpecified -> {
+                dynamicLightThemmo(currentCustomColor)
+            }
             else -> lightColorScheme
         }
     }
@@ -120,6 +133,9 @@ class ThemmoController(
                 )
                 dynamicDarkThemmo(primary)
             }
+            !isDynamicThemeEnabled and currentCustomColor.isSpecified -> {
+                dynamicDarkThemmo(currentCustomColor)
+            }
             else -> darkColorScheme
         }
 
@@ -135,7 +151,9 @@ class ThemmoController(
         return mapOf(
             AMOLED_ENABLED to isAmoledThemeEnabled,
             THEMING_MODE to currentThemingMode,
-            DYNAMIC_ENABLED to isDynamicThemeEnabled
+            DYNAMIC_ENABLED to isDynamicThemeEnabled,
+            // We can't save unsigned longs
+            CUSTOM_COLOR to currentCustomColor.value.toLong()
         )
     }
 
@@ -148,12 +166,12 @@ enum class ThemingMode {
     AUTO,
 
     /**
-     * Will use light colors only
+     * Will use light colors only.
      */
     FORCE_LIGHT,
 
     /**
-     * Will use dark colors only
+     * Will use dark colors only.
      */
     FORCE_DARK
 }
@@ -177,6 +195,7 @@ internal fun restoreThemmoState(
         themingMode = map[THEMING_MODE] as ThemingMode,
         dynamicThemeEnabled = map[DYNAMIC_ENABLED] as Boolean,
         amoledThemeEnabled = map[AMOLED_ENABLED] as Boolean,
+        customColor = Color(value = (map[CUSTOM_COLOR] as Long).toULong())
     )
 }
 
@@ -193,6 +212,7 @@ fun rememberThemmoController(
     amoledThemeEnabled: Boolean = false,
     themingMode: ThemingMode = ThemingMode.AUTO,
     dynamicThemeEnabled: Boolean = false,
+    customColor: Color =  Color.Unspecified
 ): ThemmoController {
     return rememberSaveable(
         saver = themmoControllerSaver(lightColorScheme, darkColorScheme)
@@ -202,7 +222,8 @@ fun rememberThemmoController(
             darkColorScheme = darkColorScheme,
             themingMode = themingMode,
             dynamicThemeEnabled = dynamicThemeEnabled,
-            amoledThemeEnabled = amoledThemeEnabled
+            amoledThemeEnabled = amoledThemeEnabled,
+            customColor = customColor,
         )
     }
 }
