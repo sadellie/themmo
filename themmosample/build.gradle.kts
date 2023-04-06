@@ -40,7 +40,7 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.4.0-alpha02"
+        kotlinCompilerExtensionVersion = "1.4.4"
     }
     packagingOptions {
         resources {
@@ -51,13 +51,13 @@ android {
 }
 
 dependencies {
-    implementation("androidx.core:core-ktx:1.9.0")
-    implementation("androidx.compose.ui:ui:1.4.0-alpha03")
-    implementation("androidx.compose.ui:ui-tooling-preview:1.4.0-alpha03")
-    debugImplementation("androidx.compose.ui:ui-tooling:1.4.0-alpha03")
-    implementation("androidx.compose.material3:material3:1.1.0-alpha03")
-    implementation("androidx.activity:activity-compose:1.6.1")
+    implementation("androidx.core:core-ktx:1.10.0")
+    implementation("androidx.compose.ui:ui:1.5.0-alpha02")
+    implementation("androidx.compose.ui:ui-tooling-preview:1.5.0-alpha02")
+    debugImplementation("androidx.compose.ui:ui-tooling:1.5.0-alpha02")
+    implementation("androidx.compose.material3:material3:1.1.0-beta02")
+    implementation("androidx.activity:activity-compose:1.7.0")
     testImplementation("junit:junit:4.13.2")
-    androidTestImplementation("androidx.test.ext:junit:1.1.4")
+    androidTestImplementation("androidx.test.ext:junit:1.1.5")
     implementation(project(mapOf("path" to ":themmo")))
 }

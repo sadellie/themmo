@@ -11,18 +11,12 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.DropdownMenuItem
-import androidx.compose.material3.ExposedDropdownMenuBox
+import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import io.github.sadellie.themmo.ThemingMode
@@ -48,35 +42,11 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun ExampleSettingScreen(themmoController: ThemmoController) {
     Column {
-        var dropDownExpanded by rememberSaveable { mutableStateOf(false) }
-        var currentOption by rememberSaveable { mutableStateOf(themmoController.currentThemingMode) }
 
-        SettingRow("Mode") {
-            ExposedDropdownMenuBox(
-                expanded = dropDownExpanded, onExpandedChange = { dropDownExpanded = it }
-            ) {
-                OutlinedTextField(
-                    modifier = Modifier.menuAnchor(),
-                    value = currentOption.name,
-                    onValueChange = {},
-                    readOnly = true,
-                    singleLine = true
-                )
-                ExposedDropdownMenu(
-                    expanded = dropDownExpanded,
-                    onDismissRequest = { dropDownExpanded = false }) {
-                    ThemingMode.values().forEach {
-                        DropdownMenuItem(
-                            text = { Text(it.name) },
-                            onClick = {
-                                currentOption = it
-                                themmoController.setThemingMode(it)
-                                dropDownExpanded = false
-                            }
-                        )
-                    }
-                }
-            }
+        Text("Current theme: ${themmoController.currentThemingMode}")
+
+        ThemingMode.values().forEach {
+            Button(onClick = {themmoController.setThemingMode(it)}) { Text(it.name) }
         }
 
         // This option is only for supported API levels

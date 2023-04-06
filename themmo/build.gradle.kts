@@ -66,7 +66,7 @@ android {
         shaders = false
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.4.0-alpha02"
+        kotlinCompilerExtensionVersion = "1.4.4"
     }
     packagingOptions {
         jniLibs.excludes.add("META-INF/licenses/**")
@@ -77,9 +77,9 @@ android {
 }
 
 dependencies {
-    implementation("androidx.core:core-ktx:1.9.0")
+    implementation("androidx.core:core-ktx:1.10.0")
     testImplementation("junit:junit:4.13.2")
-    androidTestImplementation("androidx.test.ext:junit:1.1.4")
-    implementation("androidx.compose.ui:ui:1.4.0-alpha03")
-    implementation("androidx.compose.material3:material3:1.1.0-alpha03")
+    androidTestImplementation("androidx.test.ext:junit:1.1.5")
+    implementation("androidx.compose.ui:ui:1.5.0-alpha02")
+    implementation("androidx.compose.material3:material3:1.1.0-beta02")
 }
