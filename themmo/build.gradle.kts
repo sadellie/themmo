@@ -64,6 +64,7 @@ android {
         aidl = false
         renderScript = false
         shaders = false
+        buildConfig = false
     }
     composeOptions {
         kotlinCompilerExtensionVersion = "1.4.4"
