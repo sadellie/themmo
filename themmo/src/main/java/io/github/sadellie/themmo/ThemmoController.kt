@@ -71,6 +71,7 @@ class ThemmoController(
         currentCustomColor = color
     }
 
+    @Composable
     internal fun provideColorScheme(
         context: Context,
         isSystemDark: Boolean,
@@ -89,6 +90,7 @@ class ThemmoController(
     }
 
     @SuppressLint("NewApi")
+    @Composable
     private fun provideLightColorScheme(context: Context): ColorScheme {
         return when {
             // Android 12+ devices use new api
@@ -105,16 +107,17 @@ class ThemmoController(
                     green = wallpaperColors.primaryColor.green(),
                     blue = wallpaperColors.primaryColor.blue()
                 )
-                dynamicLightThemmo(primary)
+                dynamicThemmo(primary, true)
             }
             !isDynamicThemeEnabled and currentCustomColor.isSpecified -> {
-                dynamicLightThemmo(currentCustomColor)
+                dynamicThemmo(currentCustomColor, true)
             }
             else -> lightColorScheme
         }
     }
 
     @SuppressLint("NewApi")
+    @Composable
     private fun provideDarkColorScheme(context: Context): ColorScheme {
         val dark = when {
             // Android 12+ devices use new api
@@ -131,10 +134,10 @@ class ThemmoController(
                     green = wallpaperColors.primaryColor.green(),
                     blue = wallpaperColors.primaryColor.blue()
                 )
-                dynamicDarkThemmo(primary)
+                dynamicThemmo(primary, false)
             }
             !isDynamicThemeEnabled and currentCustomColor.isSpecified -> {
-                dynamicDarkThemmo(currentCustomColor)
+                dynamicThemmo(currentCustomColor, false)
             }
             else -> darkColorScheme
         }

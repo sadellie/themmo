@@ -133,6 +133,9 @@ There are still some features, that I will probably add.
 2. Ability to generate color scheme from user provided color(s). It's easy to implement, but I need to find a good UX flow for this feature.
 3. Something else?
 
+# Monet library
+Themmo uses [Monet by Kyant0](https://github.com/Kyant0/Monet).
+
 # Apps built with Themmo
 As of now Themmo is used only in my app called [Unitto](https://github.com/sadellie/unitto). Themmo was originally a part of it, but has expanded into it's own project. I recommend using this project as a sample for DataStore integration.
 
