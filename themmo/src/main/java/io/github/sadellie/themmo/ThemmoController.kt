@@ -24,6 +24,7 @@ private const val AMOLED_ENABLED = "AMOLED_ENABLED"
 private const val THEMING_MODE = "THEMING_MODE"
 private const val DYNAMIC_ENABLED = "DYNAMIC_ENABLED"
 private const val CUSTOM_COLOR = "CUSTOM_COLOR"
+private const val MONET_MODE = "MONET_MODE"
 
 /**
  * Controller that holds current theming options and provides methods to manipulate them.
@@ -33,6 +34,8 @@ private const val CUSTOM_COLOR = "CUSTOM_COLOR"
  * @param themingMode Current [ThemingMode].
  * @param dynamicThemeEnabled When true will use dynamic theming (Monet).
  * @param amoledThemeEnabled When true will change background color to black. Only for dark theme.
+ * @param customColor Color from which color scheme will be generated from.
+ * @param monetMode Monet mode for custom color scheme generation
  */
 class ThemmoController(
     val lightColorScheme: ColorScheme,
@@ -40,7 +43,8 @@ class ThemmoController(
     themingMode: ThemingMode,
     dynamicThemeEnabled: Boolean,
     amoledThemeEnabled: Boolean,
-    customColor: Color
+    customColor: Color,
+    monetMode: MonetMode,
 ) {
     var currentThemingMode: ThemingMode by mutableStateOf(themingMode)
         private set
@@ -52,6 +56,9 @@ class ThemmoController(
         private set
 
     var currentCustomColor: Color by mutableStateOf(customColor)
+        private set
+
+    var currentMonetMode: MonetMode by mutableStateOf(monetMode)
         private set
 
     fun setThemingMode(mode: ThemingMode) {
@@ -69,6 +76,10 @@ class ThemmoController(
 
     fun setCustomColor(color: Color) {
         currentCustomColor = color
+    }
+
+    fun setMonetMode(monetMode: MonetMode) {
+        currentMonetMode = monetMode
     }
 
     @Composable
@@ -107,10 +118,10 @@ class ThemmoController(
                     green = wallpaperColors.primaryColor.green(),
                     blue = wallpaperColors.primaryColor.blue()
                 )
-                dynamicThemmo(primary, true)
+                dynamicThemmo(primary, currentMonetMode, true)
             }
             !isDynamicThemeEnabled and currentCustomColor.isSpecified -> {
-                dynamicThemmo(currentCustomColor, true)
+                dynamicThemmo(currentCustomColor, currentMonetMode, true)
             }
             else -> lightColorScheme
         }
@@ -134,10 +145,10 @@ class ThemmoController(
                     green = wallpaperColors.primaryColor.green(),
                     blue = wallpaperColors.primaryColor.blue()
                 )
-                dynamicThemmo(primary, false)
+                dynamicThemmo(primary, currentMonetMode, false)
             }
             !isDynamicThemeEnabled and currentCustomColor.isSpecified -> {
-                dynamicThemmo(currentCustomColor, false)
+                dynamicThemmo(currentCustomColor, currentMonetMode, false)
             }
             else -> darkColorScheme
         }
@@ -156,7 +167,8 @@ class ThemmoController(
             THEMING_MODE to currentThemingMode,
             DYNAMIC_ENABLED to isDynamicThemeEnabled,
             // We can't save unsigned longs
-            CUSTOM_COLOR to currentCustomColor.value.toLong()
+            CUSTOM_COLOR to currentCustomColor.value.toLong(),
+            MONET_MODE to currentMonetMode
         )
     }
 
@@ -168,7 +180,7 @@ class ThemmoController(
  * @param lightColorScheme Light color scheme.
  * @param darkColorScheme Dark color scheme.
  * @param map Map of other options from [ThemmoController] that were saved.
- * @return Restored [ThemmoController]
+ * @return Restored [ThemmoController].
  */
 internal fun restoreThemmoState(
     lightColorScheme: ColorScheme,
@@ -181,7 +193,8 @@ internal fun restoreThemmoState(
         themingMode = map[THEMING_MODE] as ThemingMode,
         dynamicThemeEnabled = map[DYNAMIC_ENABLED] as Boolean,
         amoledThemeEnabled = map[AMOLED_ENABLED] as Boolean,
-        customColor = Color(value = (map[CUSTOM_COLOR] as Long).toULong())
+        customColor = Color(value = (map[CUSTOM_COLOR] as Long).toULong()),
+        monetMode = map[MONET_MODE] as MonetMode
     )
 }
 
@@ -198,7 +211,8 @@ fun rememberThemmoController(
     amoledThemeEnabled: Boolean = false,
     themingMode: ThemingMode = ThemingMode.AUTO,
     dynamicThemeEnabled: Boolean = false,
-    customColor: Color =  Color.Unspecified
+    customColor: Color =  Color.Unspecified,
+    monetMode: MonetMode = MonetMode.TONAL_SPOT
 ): ThemmoController {
     return rememberSaveable(
         saver = themmoControllerSaver(lightColorScheme, darkColorScheme)
@@ -210,6 +224,7 @@ fun rememberThemmoController(
             dynamicThemeEnabled = dynamicThemeEnabled,
             amoledThemeEnabled = amoledThemeEnabled,
             customColor = customColor,
+            monetMode = monetMode
         )
     }
 }

@@ -7,7 +7,7 @@ import io.github.sadellie.themmo.monet.Srgb.Companion.toSrgb
 import kotlin.math.abs
 import kotlin.math.roundToInt
 
-data class Hct(
+internal data class Hct(
     val h: Double,
     val c: Double,
     val t: Double

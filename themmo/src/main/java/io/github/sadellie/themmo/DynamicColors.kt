@@ -12,6 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.graphics.Color
 import io.github.sadellie.themmo.monet.LocalTonalPalettes
+import io.github.sadellie.themmo.monet.PaletteStyle
 import io.github.sadellie.themmo.monet.TonalPalettes.Companion.toTonalPalettes
 import io.github.sadellie.themmo.monet.dynamicColorScheme
 
@@ -23,22 +24,25 @@ import io.github.sadellie.themmo.monet.dynamicColorScheme
  * @return Primary color of current wallpaper image.
  */
 @RequiresApi(Build.VERSION_CODES.O_MR1)
-fun extractWallpaperPrimary(context: Context): WallpaperColors? {
+internal fun extractWallpaperPrimary(context: Context): WallpaperColors? {
     return WallpaperManager.getInstance(context).getWallpaperColors(WallpaperManager.FLAG_SYSTEM)
 }
 
 /**
  * Custom Monet implementation.
  *
- * @param primary Color from which colorScheme will be generated from
- * @param isLight If True will generate light theme, else dark theme
+ * @param primary Color from which colorScheme will be generated from.
+ * @param monetMode Mode for Monet. Affects generated color scheme.
+ * @param isLight If True will generate light theme, else dark theme.
  * @return colorScheme
  */
 @Composable
-fun dynamicThemmo(primary: Color, isLight: Boolean): ColorScheme {
+internal fun dynamicThemmo(primary: Color, monetMode: MonetMode, isLight: Boolean): ColorScheme {
     var colorScheme: ColorScheme? = null
+    val paletteStyle: PaletteStyle = monetPalettes.getOrElse(monetMode) { PaletteStyle.TonalSpot }
+
     // This feels so wrong...
-    CompositionLocalProvider(LocalTonalPalettes provides primary.toTonalPalettes()) {
+    CompositionLocalProvider(LocalTonalPalettes provides primary.toTonalPalettes(paletteStyle)) {
         colorScheme = dynamicColorScheme(isLight)
     }
     return colorScheme ?: if (isLight) lightColorScheme() else darkColorScheme()

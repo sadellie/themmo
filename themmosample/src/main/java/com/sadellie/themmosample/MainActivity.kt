@@ -26,6 +26,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.core.graphics.toColorInt
+import io.github.sadellie.themmo.MonetMode
 import io.github.sadellie.themmo.ThemingMode
 import io.github.sadellie.themmo.Themmo
 import io.github.sadellie.themmo.ThemmoController
@@ -91,6 +92,11 @@ fun ExampleSettingScreen(themmoController: ThemmoController) {
             },
             placeholder = { Text("HEX value, like #A70000") }
         )
+
+        Text("Current mode: ${themmoController.currentMonetMode}")
+        MonetMode.values().forEach {
+            Button(onClick = {themmoController.setMonetMode(it)}) { Text(it.name) }
+        }
     }
 }
 

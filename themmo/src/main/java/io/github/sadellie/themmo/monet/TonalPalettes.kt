@@ -5,7 +5,7 @@ import androidx.compose.ui.graphics.Color
 
 typealias TonalPalette = Map<Double, Color>
 
-class TonalPalettes(
+internal class TonalPalettes(
     val keyColor: Color,
     val style: PaletteStyle = PaletteStyle.TonalSpot,
     private val accent1: TonalPalette,

@@ -11,32 +11,32 @@ import androidx.compose.ui.graphics.Color
 import io.github.sadellie.themmo.monet.TonalPalettes.Companion.toTonalPalettes
 import kotlin.math.roundToInt
 
-val LocalTonalPalettes: ProvidableCompositionLocal<TonalPalettes> = staticCompositionLocalOf {
+internal val LocalTonalPalettes: ProvidableCompositionLocal<TonalPalettes> = staticCompositionLocalOf {
     Color(0xFF007FAC).toTonalPalettes()
 }
 
-inline val Number.a1: Color
+internal inline val Number.a1: Color
     @Composable get() = LocalTonalPalettes.current accent1 toDouble()
 
-inline val Number.a2: Color
+internal inline val Number.a2: Color
     @Composable get() = LocalTonalPalettes.current accent2 toDouble()
 
-inline val Number.a3: Color
+internal inline val Number.a3: Color
     @Composable get() = LocalTonalPalettes.current accent3 toDouble()
 
-inline val Number.n1: Color
+internal inline val Number.n1: Color
     @Composable get() = LocalTonalPalettes.current neutral1 toDouble()
 
-inline val Number.n2: Color
+internal inline val Number.n2: Color
     @Composable get() = LocalTonalPalettes.current neutral2 toDouble()
 
 @Composable
-infix fun Color.withNight(nightColor: Color): Color {
+internal infix fun Color.withNight(nightColor: Color): Color {
     return if (isSystemInDarkTheme()) nightColor else this
 }
 
 @Composable
-fun dynamicColorScheme(isLight: Boolean = !isSystemInDarkTheme()): ColorScheme {
+internal fun dynamicColorScheme(isLight: Boolean = !isSystemInDarkTheme()): ColorScheme {
     return if (isLight) {
         lightColorScheme(
             background = 99.n1,
@@ -94,7 +94,7 @@ fun dynamicColorScheme(isLight: Boolean = !isSystemInDarkTheme()): ColorScheme {
     }
 }
 
-fun Srgb.toColor(): Color {
+internal fun Srgb.toColor(): Color {
     return Color(
         (r * 255).roundToInt(),
         (g * 255).roundToInt(),
@@ -102,7 +102,7 @@ fun Srgb.toColor(): Color {
     )
 }
 
-fun Color.toSrgb(): Srgb {
+internal fun Color.toSrgb(): Srgb {
     return Srgb(
         red.toDouble(),
         green.toDouble(),

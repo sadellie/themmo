@@ -1,6 +1,6 @@
 package io.github.sadellie.themmo.monet
 
-class PaletteStyle(
+internal class PaletteStyle(
     val accent1Spec: ColorSpec,
     val accent2Spec: ColorSpec,
     val accent3Spec: ColorSpec,

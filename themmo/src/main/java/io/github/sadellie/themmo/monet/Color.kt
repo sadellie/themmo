@@ -12,7 +12,7 @@ import kotlin.math.sign
 import kotlin.math.sin
 import kotlin.math.sqrt
 
-data class CieXyz(
+internal data class CieXyz(
     val x: Double,
     val y: Double,
     val z: Double
@@ -24,7 +24,7 @@ data class CieXyz(
     }
 }
 
-data class Srgb(
+internal data class Srgb(
     val r: Double,
     val g: Double,
     val b: Double
@@ -87,7 +87,7 @@ data class Srgb(
     }
 }
 
-data class CieLab(
+internal data class CieLab(
     val l: Double,
     val a: Double,
     val b: Double
@@ -124,7 +124,7 @@ data class CieLab(
     }
 }
 
-data class Cam16(
+internal data class Cam16(
     val j: Double,
     val c: Double,
     val h: Double
@@ -210,7 +210,7 @@ data class Cam16(
     }
 }
 
-data class Cam16Ucs(
+internal data class Cam16Ucs(
     val j: Double,
     val a: Double,
     val b: Double
