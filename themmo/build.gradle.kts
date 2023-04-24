@@ -9,7 +9,7 @@ publishing {
         register<MavenPublication>("release") {
             groupId = "io.github.sadellie"
             artifactId = "themmo"
-            version = "0.0.9"
+            version = "1.0.0"
 
             afterEvaluate {
                 from(components["release"])
