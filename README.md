@@ -6,10 +6,10 @@
 ## [*Click here to read the article on Medium!*](https://medium.com/@sadellie.dev/how-to-simplify-theming-in-your-app-c2edf3203fc2)
 
 
-# Disclaimer
-This project is just a proof-of-concept. Currently the library is used by me only. If you have somehow ended up finding this repository and want to use Themmo, feel free to do so.
+# Current project status
+Production **ready**. Maintaining when needed.
 
-<img src="content/themmo.gif" width="50%" />
+<img src="content/themmo.gif" width="45%" />
 
 # About
 Themmo is a special composable component that replaces commonly used MaterialTheme composable. Main goal of this project is to make a universal way of dealing with theming in Compose.
