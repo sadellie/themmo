@@ -49,6 +49,23 @@ Themmo composable passes down a ThemmoController that is used to manipulate them
 
 For example, if you want to force your app to use dark colorScheme:
 ```kotlin
+val themmoController = rememberThemmoController(
+	lightColorScheme = lightColorScheme(),
+	darkColorScheme = darkColorScheme(),
+	themingMode = ThemingMode.AUTO,
+	dynamicThemeEnabled = true,
+	amoledThemeEnabled = true
+)
+
+Themmo(
+	themmoController = themmoController
+) { themmoController ->
+	// Content, your app's entry point composable
+}
+```
+
+Later in code you can use
+```kotlin
 themmoController.setThemingMode(ThemingMode.FORCE_DARK)
 ```
 
@@ -117,21 +134,13 @@ When developing Themmo, a DataStore integration was taken into account.
 P.S. Non-DataStore users will have to adapt this solution or come with their own.
 
 # Tests
-Most of the methods are covered with tests. They are very primitive so far, but I will probably add a few more edge cases.
-Trying TDD approach.
-
-The only part that is not covered with tests is dynamic theming.
+Tested in prod for almost a year. Themmo is bug-free.
 
 # Contributing
 Pull requests and other activities on this repository are welcomed.
 
 # Future updates
-Themmo, in it's current state, is already production ready (except for fake Monet, which can rarely generate bad color scheme). While I do not guarantee of this project to be frequently updated, I will at least try to keep used dependencies up-to-date.
-
-There are still some features, that I will probably add.
-1. Upload artifact somewhere
-2. Ability to generate color scheme from user provided color(s). It's easy to implement, but I need to find a good UX flow for this feature.
-3. Something else?
+Themmo, in it's current state, is already production ready. No API-breaking changes.
 
 # Monet library
 Themmo uses [Monet by Kyant0](https://github.com/Kyant0/Monet).
