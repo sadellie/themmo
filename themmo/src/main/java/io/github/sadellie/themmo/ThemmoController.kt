@@ -166,7 +166,6 @@ class ThemmoController(
                     keyColor = currentCustomColor,
                     isDark = true,
                     style = currentMonetMode,
-                    contrastLevel = if (isAmoledThemeEnabled) 0.8 else 0.0
                 )
             }
             else -> darkColorScheme
