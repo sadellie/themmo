@@ -1,13 +1,10 @@
 package io.github.sadellie.themmo
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.compose.material3.ColorScheme
 import androidx.compose.material3.darkColorScheme
-import androidx.compose.material3.dynamicDarkColorScheme
-import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -18,6 +15,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.isSpecified
+import androidx.compose.ui.res.colorResource
 
 // Constants for Saver
 private const val AMOLED_ENABLED = "AMOLED_ENABLED"
@@ -100,55 +98,76 @@ class ThemmoController(
         }
     }
 
-    @SuppressLint("NewApi")
     @Composable
     private fun provideLightColorScheme(context: Context): ColorScheme {
         return when {
-            // Android 12+ devices use new api
-            isDynamicThemeEnabled and (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) -> {
-                dynamicLightColorScheme(context)
-            }
-            // Dynamic theming for devices with Android 8.1 up to Android 11
-            isDynamicThemeEnabled and (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1) -> {
-                // Wallpaper colors can be null. We return default theme for such cases
-                val wallpaperColors = extractWallpaperPrimary(context)
-                    ?: return lightColorScheme
-                val primary = Color(
-                    red = wallpaperColors.primaryColor.red(),
-                    green = wallpaperColors.primaryColor.green(),
-                    blue = wallpaperColors.primaryColor.blue()
+            isDynamicThemeEnabled -> {
+                val keyColor = when {
+                    Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
+                        colorResource(id = android.R.color.system_accent1_500)
+                    }
+                    Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1 -> {
+                        val wallpaperColors = extractWallpaperPrimary(context)
+                            ?: return lightColorScheme
+                        Color(
+                            red = wallpaperColors.primaryColor.red(),
+                            green = wallpaperColors.primaryColor.green(),
+                            blue = wallpaperColors.primaryColor.blue()
+                        )
+                    }
+                    else -> return lightColorScheme
+                }
+
+                dynamicColorScheme(
+                    keyColor = keyColor,
+                    isDark = false,
+                    style = currentMonetMode,
                 )
-                dynamicThemmo(primary, currentMonetMode, true)
             }
             !isDynamicThemeEnabled and currentCustomColor.isSpecified -> {
-                dynamicThemmo(currentCustomColor, currentMonetMode, true)
+                dynamicColorScheme(
+                    keyColor = currentCustomColor,
+                    isDark = false,
+                    style = currentMonetMode
+                )
             }
             else -> lightColorScheme
         }
     }
 
-    @SuppressLint("NewApi")
     @Composable
     private fun provideDarkColorScheme(context: Context): ColorScheme {
         val dark = when {
-            // Android 12+ devices use new api
-            isDynamicThemeEnabled and (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) -> {
-                dynamicDarkColorScheme(context)
-            }
-            // Dynamic theming for devices with Android 8.1 up to Android 11
-            isDynamicThemeEnabled and (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1) -> {
-                // Wallpaper colors can be null. We return default theme for such cases
-                val wallpaperColors = extractWallpaperPrimary(context)
-                    ?: return darkColorScheme
-                val primary = Color(
-                    red = wallpaperColors.primaryColor.red(),
-                    green = wallpaperColors.primaryColor.green(),
-                    blue = wallpaperColors.primaryColor.blue()
+            isDynamicThemeEnabled -> {
+                val keyColor = when {
+                    Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
+                        colorResource(id = android.R.color.system_accent1_500)
+                    }
+                    Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1 -> {
+                        val wallpaperColors = extractWallpaperPrimary(context)
+                            ?: return darkColorScheme
+                        Color(
+                            red = wallpaperColors.primaryColor.red(),
+                            green = wallpaperColors.primaryColor.green(),
+                            blue = wallpaperColors.primaryColor.blue()
+                        )
+                    }
+                    else -> return darkColorScheme
+                }
+
+                dynamicColorScheme(
+                    keyColor = keyColor,
+                    isDark = true,
+                    style = currentMonetMode,
                 )
-                dynamicThemmo(primary, currentMonetMode, false)
             }
             !isDynamicThemeEnabled and currentCustomColor.isSpecified -> {
-                dynamicThemmo(currentCustomColor, currentMonetMode, false)
+                dynamicColorScheme(
+                    keyColor = currentCustomColor,
+                    isDark = true,
+                    style = currentMonetMode,
+                    contrastLevel = if (isAmoledThemeEnabled) 0.8 else 0.0
+                )
             }
             else -> darkColorScheme
         }
@@ -212,7 +231,7 @@ fun rememberThemmoController(
     themingMode: ThemingMode = ThemingMode.AUTO,
     dynamicThemeEnabled: Boolean = false,
     customColor: Color =  Color.Unspecified,
-    monetMode: MonetMode = MonetMode.TONAL_SPOT
+    monetMode: MonetMode = MonetMode.TonalSpot
 ): ThemmoController {
     return rememberSaveable(
         saver = themmoControllerSaver(lightColorScheme, darkColorScheme)
