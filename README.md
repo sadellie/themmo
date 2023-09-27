@@ -9,7 +9,7 @@
 # Current project status
 Production **ready**. Maintaining when needed.
 
-<img src="content/themmo.gif" width="45%" />
+<img alt="F-Droid" src="https://user-images.githubusercontent.com/10384356/234086204-a932e178-b4a7-4ca2-822b-634e0324aa5b.png" width="32%"/>
 
 # About
 Themmo is a special composable component that replaces commonly used MaterialTheme composable. Main goal of this project is to make a universal way of dealing with theming in Compose.
