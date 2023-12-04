@@ -143,7 +143,7 @@ Pull requests and other activities on this repository are welcomed.
 Themmo, in it's current state, is already production ready. No API-breaking changes.
 
 # Monet library
-Themmo uses [Monet by Kyant0](https://github.com/Kyant0/Monet).
+Themmo uses [m3color by Kyant0](https://github.com/Kyant0/m3color).
 
 # Apps built with Themmo
 As of now Themmo is used only in my app called [Unitto](https://github.com/sadellie/unitto). Themmo was originally a part of it, but has expanded into it's own project. I recommend using this project as a sample for DataStore integration.
