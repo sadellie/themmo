@@ -27,8 +27,16 @@ import com.kyant.m3color.scheme.SchemeVibrant
  * @return Primary color of current wallpaper image.
  */
 @RequiresApi(Build.VERSION_CODES.O_MR1)
-internal fun extractWallpaperPrimary(context: Context): WallpaperColors? {
-    return WallpaperManager.getInstance(context).getWallpaperColors(WallpaperManager.FLAG_SYSTEM)
+internal fun extractWallpaperPrimary(context: Context): Color? {
+    val wallpaperColors: WallpaperColors = WallpaperManager
+        .getInstance(context)
+        .getWallpaperColors(WallpaperManager.FLAG_SYSTEM) ?: return null
+
+    return Color(
+        red = wallpaperColors.primaryColor.red(),
+        green = wallpaperColors.primaryColor.green(),
+        blue = wallpaperColors.primaryColor.blue()
+    )
 }
 
 internal fun dynamicColorScheme(
