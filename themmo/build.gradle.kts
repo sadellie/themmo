@@ -8,8 +8,8 @@ publishing {
     publications {
         register<MavenPublication>("release") {
             groupId = "io.github.sadellie"
-            artifactId = "themmo13"
-            version = "1.1.0"
+            artifactId = "themmo"
+            version = "1.2.0"
 
             afterEvaluate {
                 from(components["release"])
@@ -18,7 +18,6 @@ publishing {
     }
 }
 
-@Suppress("UnstableApiUsage")
 android {
     namespace = "io.github.sadellie.themmo"
     compileSdk = 34
@@ -67,9 +66,9 @@ android {
         buildConfig = false
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.4.4"
+        kotlinCompilerExtensionVersion = libs.versions.androidxComposeCompiler.get().toString()
     }
-    packagingOptions {
+    packaging {
         jniLibs.excludes.add("META-INF/licenses/**")
         resources.excludes.add("META-INF/licenses/**")
         resources.excludes.add("META-INF/AL2.0")
@@ -78,10 +77,10 @@ android {
 }
 
 dependencies {
-    implementation("androidx.core:core-ktx:1.12.0")
-    testImplementation("junit:junit:4.13.2")
-    androidTestImplementation("androidx.test.ext:junit:1.1.5")
-    implementation("androidx.compose.ui:ui:1.6.0-alpha06")
-    implementation("androidx.compose.material3:material3:1.2.0-alpha08")
-    implementation("com.github.Kyant0:m3color:2023.8.1")
+    implementation(libs.androidx.core.core.ktx)
+    testImplementation(libs.junit.junit)
+    androidTestImplementation(libs.androidx.test.ext.junit.ktx)
+    implementation(libs.androidx.compose.ui)
+    implementation(libs.com.github.kyant0.m3color)
+    implementation(libs.androidx.compose.material3)
 }

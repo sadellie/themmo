@@ -1,0 +1,26 @@
+[versions]
+androidGradlePlugin = "8.2.1"
+kotlin = "1.9.22"
+androidxCoreCoreKts = "1.12.0"
+junitJunit = "4.13.2"
+androidxCompose = "1.6.0-rc01"
+androidxComposeMaterial3 = "1.2.0-beta02"
+androidxComposeCompiler = "1.5.8"
+comGithubKyant0m3color = "2024.1"
+androidxTestExtJunitKtx = "1.1.5"
+androidxActivityActivityCompose = "1.8.2"
+
+[libraries]
+androidx-core-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "androidxCoreCoreKts" }
+junit-junit = { group = "junit", name = "junit", version.ref = "junitJunit" }
+androidx-compose-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling", version.ref = "androidxCompose" }
+androidx-compose-material3 = { group = "androidx.compose.material3", name = "material3", version.ref = "androidxComposeMaterial3" }
+androidx-compose-ui = { group = "androidx.compose.ui", name = "ui", version.ref = "androidxCompose" }
+com-github-kyant0-m3color = { group = "com.github.Kyant0", name = "m3color", version.ref = "comGithubKyant0m3color" }
+androidx-test-ext-junit-ktx = { group = "androidx.test.ext", name = "junit-ktx", version.ref = "androidxTestExtJunitKtx" }
+androidx-compose-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview", version.ref = "androidxCompose" }
+androidx-activity-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "androidxActivityActivityCompose" }
+
+[plugins]
+android-gradlePlugin = { id = "com.android.application", version.ref = "androidGradlePlugin" }
+kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }

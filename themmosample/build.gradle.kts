@@ -3,7 +3,6 @@ plugins {
     id("kotlin-android")
 }
 
-@Suppress("UnstableApiUsage")
 android {
     compileSdk = 34
 
@@ -40,9 +39,9 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.4.4"
+        kotlinCompilerExtensionVersion = libs.versions.androidxComposeCompiler.get().toString()
     }
-    packagingOptions {
+    packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
@@ -51,13 +50,13 @@ android {
 }
 
 dependencies {
-    implementation("androidx.core:core-ktx:1.12.0")
-    implementation("androidx.compose.ui:ui:1.6.0-alpha06")
-    implementation("androidx.compose.ui:ui-tooling-preview:1.6.0-alpha06")
-    debugImplementation("androidx.compose.ui:ui-tooling:1.6.0-alpha06")
-    implementation("androidx.compose.material3:material3:1.2.0-alpha08")
-    implementation("androidx.activity:activity-compose:1.7.2")
-    testImplementation("junit:junit:4.13.2")
-    androidTestImplementation("androidx.test.ext:junit:1.1.5")
+    implementation(libs.androidx.core.core.ktx)
+    implementation(libs.androidx.compose.ui)
+    implementation(libs.androidx.compose.ui.tooling.preview)
+    debugImplementation(libs.androidx.compose.ui.tooling)
+    implementation(libs.androidx.compose.material3)
+    implementation(libs.androidx.activity.activity.compose)
+    testImplementation(libs.junit.junit)
+    androidTestImplementation(libs.androidx.test.ext.junit.ktx)
     implementation(project(mapOf("path" to ":themmo")))
 }

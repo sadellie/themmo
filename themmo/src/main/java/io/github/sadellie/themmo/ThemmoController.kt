@@ -5,6 +5,8 @@ import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.compose.material3.ColorScheme
 import androidx.compose.material3.darkColorScheme
+import androidx.compose.material3.dynamicDarkColorScheme
+import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -102,27 +104,34 @@ class ThemmoController(
     private fun provideLightColorScheme(context: Context): ColorScheme {
         return when {
             isDynamicThemeEnabled -> {
-                val keyColor = when {
-                    Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
-                        colorResource(id = android.R.color.system_accent1_500)
+                when {
+                    Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE -> {
+                        dynamicLightColorScheme(context)
                     }
-                    Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1 -> {
-                        val wallpaperColors = extractWallpaperPrimary(context)
-                            ?: return lightColorScheme
-                        Color(
-                            red = wallpaperColors.primaryColor.red(),
-                            green = wallpaperColors.primaryColor.green(),
-                            blue = wallpaperColors.primaryColor.blue()
+                    Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
+                        val keyColor = colorResource(android.R.color.system_accent1_500)
+
+                        dynamicColorScheme(
+                            keyColor = keyColor,
+                            isDark = false,
+                            style = currentMonetMode,
                         )
                     }
-                    else -> return lightColorScheme
-                }
+                    Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1 -> {
+                        val keyColor = extractWallpaperPrimary(context)
 
-                dynamicColorScheme(
-                    keyColor = keyColor,
-                    isDark = false,
-                    style = currentMonetMode,
-                )
+                        if (keyColor == null) {
+                            lightColorScheme
+                        } else {
+                            dynamicColorScheme(
+                                keyColor = keyColor,
+                                isDark = false,
+                                style = currentMonetMode,
+                            )
+                        }
+                    }
+                    else -> lightColorScheme
+                }
             }
             !isDynamicThemeEnabled and currentCustomColor.isSpecified -> {
                 dynamicColorScheme(
@@ -137,29 +146,36 @@ class ThemmoController(
 
     @Composable
     private fun provideDarkColorScheme(context: Context): ColorScheme {
-        val dark = when {
+        val darkColorScheme: ColorScheme = when {
             isDynamicThemeEnabled -> {
-                val keyColor = when {
-                    Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
-                        colorResource(id = android.R.color.system_accent1_500)
+                when {
+                    Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE -> {
+                        dynamicDarkColorScheme(context)
                     }
-                    Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1 -> {
-                        val wallpaperColors = extractWallpaperPrimary(context)
-                            ?: return darkColorScheme
-                        Color(
-                            red = wallpaperColors.primaryColor.red(),
-                            green = wallpaperColors.primaryColor.green(),
-                            blue = wallpaperColors.primaryColor.blue()
+                    Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
+                        val keyColor = colorResource(android.R.color.system_accent1_500)
+
+                        dynamicColorScheme(
+                            keyColor = keyColor,
+                            isDark = true,
+                            style = currentMonetMode,
                         )
                     }
-                    else -> return darkColorScheme
-                }
+                    Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1 -> {
+                        val keyColor = extractWallpaperPrimary(context)
 
-                dynamicColorScheme(
-                    keyColor = keyColor,
-                    isDark = true,
-                    style = currentMonetMode,
-                )
+                        if (keyColor == null) {
+                            darkColorScheme
+                        } else {
+                            dynamicColorScheme(
+                                keyColor = keyColor,
+                                isDark = true,
+                                style = currentMonetMode,
+                            )
+                        }
+                    }
+                    else -> darkColorScheme
+                }
             }
             !isDynamicThemeEnabled and currentCustomColor.isSpecified -> {
                 dynamicColorScheme(
@@ -173,9 +189,9 @@ class ThemmoController(
 
         // Turning into amoled if needed
         return if (isAmoledThemeEnabled) {
-            dark.copy(background = Color.Black, surface = Color.Black)
+            darkColorScheme.copy(background = Color.Black, surface = Color.Black)
         } else {
-            dark
+            darkColorScheme
         }
     }
 
