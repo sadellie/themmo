@@ -18,6 +18,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.isSpecified
 import androidx.compose.ui.res.colorResource
+import io.github.sadellie.themmo.core.MonetMode
+import io.github.sadellie.themmo.core.ThemingMode
 
 // Constants for Saver
 private const val AMOLED_ENABLED = "AMOLED_ENABLED"

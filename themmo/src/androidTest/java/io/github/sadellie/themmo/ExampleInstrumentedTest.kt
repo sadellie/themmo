@@ -6,6 +6,7 @@ import androidx.compose.material3.lightColorScheme
 import androidx.compose.ui.graphics.Color
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import io.github.sadellie.themmo.core.ThemingMode
 
 import org.junit.Test
 import org.junit.runner.RunWith

@@ -8,7 +8,7 @@ publishing {
     publications {
         register<MavenPublication>("release") {
             groupId = "io.github.sadellie"
-            artifactId = "themmo"
+            artifactId = "themmo-core"
             version = libs.versions.version.get().toString()
 
             afterEvaluate {
@@ -19,12 +19,11 @@ publishing {
 }
 
 android {
-    namespace = "io.github.sadellie.themmo"
+    namespace = "io.github.sadellie.themmo.core"
     compileSdk = 34
 
     defaultConfig {
         minSdk = 21
-        targetSdk = 34
 
         aarMetadata {
             minCompileSdk = 29
@@ -56,32 +55,8 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
-    buildFeatures {
-        compose = true
-
-        // These are unused features
-        aidl = false
-        renderScript = false
-        shaders = false
-        buildConfig = false
-    }
-    composeOptions {
-        kotlinCompilerExtensionVersion = libs.versions.androidxComposeCompiler.get().toString()
-    }
-    packaging {
-        jniLibs.excludes.add("META-INF/licenses/**")
-        resources.excludes.add("META-INF/licenses/**")
-        resources.excludes.add("META-INF/AL2.0")
-        resources.excludes.add("META-INF/LGPL2.1")
-    }
 }
 
 dependencies {
     implementation(libs.androidx.core.core.ktx)
-    testImplementation(libs.junit.junit)
-    androidTestImplementation(libs.androidx.test.ext.junit.ktx)
-    implementation(libs.androidx.compose.ui)
-    implementation(libs.com.github.kyant0.m3color)
-    implementation(libs.androidx.compose.material3)
-    api(project(":themmo-core"))
 }

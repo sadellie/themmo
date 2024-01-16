@@ -19,6 +19,7 @@ import com.kyant.m3color.scheme.SchemeNeutral
 import com.kyant.m3color.scheme.SchemeRainbow
 import com.kyant.m3color.scheme.SchemeTonalSpot
 import com.kyant.m3color.scheme.SchemeVibrant
+import io.github.sadellie.themmo.core.MonetMode
 
 /**
  * Extract primary color from device wallpaper.
@@ -92,14 +93,3 @@ internal fun dynamicColorScheme(
     )
 }
 
-enum class MonetMode {
-    TonalSpot,
-    Neutral,
-    Vibrant,
-    Expressive,
-    Rainbow,
-    FruitSalad,
-    Monochrome,
-    Fidelity,
-    Content
-}

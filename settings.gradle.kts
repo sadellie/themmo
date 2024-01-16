@@ -17,3 +17,4 @@ dependencyResolutionManagement {
 rootProject.name = "Themmo"
 include(":themmo")
 include(":themmosample")
+include(":themmo-core")

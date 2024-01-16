@@ -35,10 +35,10 @@ import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
 import androidx.core.graphics.toColorInt
-import io.github.sadellie.themmo.MonetMode
-import io.github.sadellie.themmo.ThemingMode
+import io.github.sadellie.themmo.core.MonetMode
 import io.github.sadellie.themmo.Themmo
 import io.github.sadellie.themmo.ThemmoController
+import io.github.sadellie.themmo.core.ThemingMode
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -104,7 +104,7 @@ fun ExampleSettingScreen(themmoController: ThemmoController) {
 
         Text("Current theme: ${themmoController.currentThemingMode}")
 
-        ThemingMode.values().forEach {
+        ThemingMode.entries.forEach {
             Button(onClick = { themmoController.setThemingMode(it) }) { Text(it.name) }
         }
 
@@ -143,7 +143,7 @@ fun ExampleSettingScreen(themmoController: ThemmoController) {
         )
 
         Text("Current mode: ${themmoController.currentMonetMode}")
-        MonetMode.values().forEach {
+        MonetMode.entries.forEach {
             Button(onClick = { themmoController.setMonetMode(it) }) { Text(it.name) }
         }
 
