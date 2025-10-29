@@ -1,87 +1,39 @@
+import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
+import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+
 plugins {
-    id("com.android.library")
-    id("kotlin-android")
-    id("maven-publish")
+  // decouple from main app for multiplatform unitto
+  alias(libs.plugins.android.library)
+  alias(libs.plugins.compose)
+  alias(libs.plugins.compose.compiler)
+  alias(libs.plugins.multiplatform)
 }
 
-publishing {
-    publications {
-        register<MavenPublication>("release") {
-            groupId = "io.github.sadellie"
-            artifactId = "themmo"
-            version = libs.versions.version.get().toString()
+kotlin {
+  androidTarget {
+    @OptIn(ExperimentalKotlinGradlePluginApi::class)
+    compilerOptions { jvmTarget.set(JvmTarget.JVM_11) }
+  }
+  @OptIn(ExperimentalWasmDsl::class)
+  wasmJs {
+    outputModuleName.set("composeApp")
+    browser()
+    binaries.executable()
+  }
 
-            afterEvaluate {
-                from(components["release"])
-            }
-        }
-    }
+  sourceSets.commonMain.dependencies {
+    implementation(compose.components.uiToolingPreview)
+    implementation(compose.foundation)
+    implementation(libs.com.materialkolor.material.color.utilities)
+    implementation(libs.org.jetbrains.compose.material3.material3)
+    api(project(":themmo-core"))
+  }
 }
 
 android {
-    namespace = "io.github.sadellie.themmo"
-    compileSdk = 34
-
-    defaultConfig {
-        minSdk = 21
-        targetSdk = 34
-
-        aarMetadata {
-            minCompileSdk = 29
-        }
-
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        consumerProguardFiles("consumer-rules.pro")
-    }
-
-    publishing {
-        singleVariant("release") {
-            withSourcesJar()
-        }
-    }
-
-    buildTypes {
-        release {
-            isMinifyEnabled = false
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
-        }
-    }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
-    }
-    kotlinOptions {
-        jvmTarget = "1.8"
-    }
-    buildFeatures {
-        compose = true
-
-        // These are unused features
-        aidl = false
-        renderScript = false
-        shaders = false
-        buildConfig = false
-    }
-    composeOptions {
-        kotlinCompilerExtensionVersion = libs.versions.androidxComposeCompiler.get().toString()
-    }
-    packaging {
-        jniLibs.excludes.add("META-INF/licenses/**")
-        resources.excludes.add("META-INF/licenses/**")
-        resources.excludes.add("META-INF/AL2.0")
-        resources.excludes.add("META-INF/LGPL2.1")
-    }
-}
-
-dependencies {
-    implementation(libs.androidx.core.core.ktx)
-    testImplementation(libs.junit.junit)
-    androidTestImplementation(libs.androidx.test.ext.junit.ktx)
-    implementation(libs.androidx.compose.ui)
-    implementation(libs.com.github.kyant0.m3color)
-    implementation(libs.androidx.compose.material3)
-    api(project(":themmo-core"))
+  namespace = "io.github.sadellie.themmo"
+  defaultConfig.minSdk = 23
+  defaultConfig.targetSdk = 36
+  compileSdk = defaultConfig.targetSdk
 }

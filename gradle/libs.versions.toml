@@ -1,27 +1,35 @@
 [versions]
-version = "1.3.0"
-androidGradlePlugin = "8.2.1"
-kotlin = "1.9.22"
-androidxCoreCoreKts = "1.12.0"
-junitJunit = "4.13.2"
-androidxCompose = "1.6.0-rc01"
-androidxComposeMaterial3 = "1.2.0-beta02"
-androidxComposeCompiler = "1.5.8"
-comGithubKyant0m3color = "2024.1"
-androidxTestExtJunitKtx = "1.1.5"
-androidxActivityActivityCompose = "1.8.2"
+# https://developer.android.com/reference/tools/gradle-api
+androidGradlePlugin = "8.11.0"
+# https://kotlinlang.org/docs/releases.html
+kotlin = "2.2.21"
+# https://developer.android.com/jetpack/androidx/releases/compose
+androidxComposeCompiler = "1.5.15"
+# https://developer.android.com/jetpack/androidx/releases/compose
+# https://github.com/JetBrains/compose-multiplatform/releases
+compose = "1.9.2"
+# https://mvnrepository.com/artifact/org.jetbrains.compose.material3/material3
+material3 = "1.10.0-alpha03"
+# https://github.com/jordond/MaterialKolor/releases
+materialKolor = "3.0.1"
+# https://mvnrepository.com/artifact/androidx.core/core-ktx
+androidxCoreCoreKts = "1.17.0"
+# https://developer.android.com/jetpack/androidx/releases/activity
+androidxActivityActivityCompose = "1.11.0"
+# https://developer.android.com/jetpack/androidx/releases/appcompat
+androidxAppCompatAppCompat = "1.7.1"
 
 [libraries]
-androidx-core-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "androidxCoreCoreKts" }
-junit-junit = { group = "junit", name = "junit", version.ref = "junitJunit" }
-androidx-compose-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling", version.ref = "androidxCompose" }
-androidx-compose-material3 = { group = "androidx.compose.material3", name = "material3", version.ref = "androidxComposeMaterial3" }
-androidx-compose-ui = { group = "androidx.compose.ui", name = "ui", version.ref = "androidxCompose" }
-com-github-kyant0-m3color = { group = "com.github.Kyant0", name = "m3color", version.ref = "comGithubKyant0m3color" }
-androidx-test-ext-junit-ktx = { group = "androidx.test.ext", name = "junit-ktx", version.ref = "androidxTestExtJunitKtx" }
-androidx-compose-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview", version.ref = "androidxCompose" }
-androidx-activity-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "androidxActivityActivityCompose" }
+androidx-core-ktx = { module = "androidx.core:core-ktx", version.ref = "androidxCoreCoreKts" }
+androidx-appcompat-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "androidxAppCompatAppCompat" }
+androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidxActivityActivityCompose" }
+org-jetbrains-compose-material3-material3 = { module = "org.jetbrains.compose.material3:material3", version.ref = "material3" }
+com-materialkolor-material-color-utilities = { module = "com.materialkolor:material-color-utilities", version.ref = "materialKolor" }
 
 [plugins]
-android-gradlePlugin = { id = "com.android.application", version.ref = "androidGradlePlugin" }
-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+android-application = { id = "com.android.application", version.ref = "androidGradlePlugin" }
+android-library = { id = "com.android.library", version.ref = "androidGradlePlugin" }
+multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
+compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+compose = { id = "org.jetbrains.compose", version.ref = "compose" }
+kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }

@@ -1,62 +1,114 @@
+import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
+import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpackConfig
+
 plugins {
-    id("com.android.application")
-    id("kotlin-android")
+  alias(libs.plugins.compose.compiler)
+  alias(libs.plugins.compose)
+  alias(libs.plugins.multiplatform)
+  alias(libs.plugins.android.application)
+}
+
+kotlin {
+  androidTarget {
+    @OptIn(ExperimentalKotlinGradlePluginApi::class)
+    compilerOptions { jvmTarget.set(JvmTarget.JVM_11) }
+  }
+  @OptIn(ExperimentalWasmDsl::class)
+  wasmJs {
+    outputModuleName.set("composeApp")
+    browser {
+      val rootDirPath = project.rootDir.path
+      val projectDirPath = project.projectDir.path
+      commonWebpackConfig {
+        outputFileName = "composeApp.js"
+        devServer =
+          (devServer ?: KotlinWebpackConfig.DevServer()).apply {
+            static =
+              (static ?: mutableListOf()).apply {
+                // Serve sources to debug inside browser
+                add(rootDirPath)
+                add(projectDirPath)
+              }
+          }
+      }
+      testTask { useKarma { useFirefoxHeadless() } }
+    }
+    binaries.executable()
+  }
+  sourceSets {
+    commonMain.dependencies {
+      implementation(compose.components.resources)
+      implementation(compose.components.uiToolingPreview)
+      implementation(compose.ui)
+      implementation(libs.org.jetbrains.compose.material3.material3)
+      implementation(project(":themmo"))
+    }
+    androidMain.dependencies {
+      implementation(compose.uiTooling)
+      implementation(libs.androidx.activity.compose)
+      implementation(libs.androidx.appcompat.appcompat)
+      implementation(libs.androidx.core.ktx)
+    }
+    wasmJsMain.dependencies {}
+  }
+
+  compilerOptions {
+    optIn.addAll(
+      "kotlin.time.ExperimentalTime",
+      "androidx.compose.material3.ExperimentalMaterial3ExpressiveApi",
+    )
+  }
+  targets.configureEach {
+    compilations.configureEach {
+      compileTaskProvider.get().compilerOptions { freeCompilerArgs.add("-Xexpect-actual-classes") }
+    }
+  }
 }
 
 android {
-    compileSdk = 34
+  namespace = "io.github.sadellie.themmosample"
+  compileSdk = 36
 
-    defaultConfig {
-        applicationId = "com.sadellie.themmosample"
-        minSdk = 21
-        targetSdk = 34
-        versionCode = 1
-        versionName = "1.0"
+  defaultConfig {
+    applicationId = "io.github.sadellie.themmosample"
+    minSdk = 31
+    targetSdk = 36
+    versionCode = 1
+    versionName = "1.0"
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-    }
+    testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+  }
 
-    buildTypes {
-        release {
-            isMinifyEnabled = false
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
-        }
+  buildTypes {
+    debug {
+      isDebuggable = true
+      isMinifyEnabled = false
+      isShrinkResources = false
+      applicationIdSuffix = ""
     }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+    release {
+      initWith(getByName("debug"))
+      isDebuggable = false
+      isMinifyEnabled = true
+      isShrinkResources = true
+      applicationIdSuffix = ""
+      proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
     }
-    kotlinOptions {
-        jvmTarget = "1.8"
-        freeCompilerArgs = freeCompilerArgs + listOf(
-            "-opt-in=androidx.compose.material3.ExperimentalMaterial3Api",
-        )
-    }
-    buildFeatures {
-        compose = true
-    }
-    composeOptions {
-        kotlinCompilerExtensionVersion = libs.versions.androidxComposeCompiler.get().toString()
-    }
-    packaging {
-        resources {
-            excludes += "/META-INF/{AL2.0,LGPL2.1}"
-        }
-    }
-    namespace = "com.sadellie.themmosample"
-}
-
-dependencies {
-    implementation(libs.androidx.core.core.ktx)
-    implementation(libs.androidx.compose.ui)
-    implementation(libs.androidx.compose.ui.tooling.preview)
-    debugImplementation(libs.androidx.compose.ui.tooling)
-    implementation(libs.androidx.compose.material3)
-    implementation(libs.androidx.activity.activity.compose)
-    testImplementation(libs.junit.junit)
-    androidTestImplementation(libs.androidx.test.ext.junit.ktx)
-    implementation(project(mapOf("path" to ":themmo")))
+  }
+  compileOptions {
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
+  }
+  buildFeatures {
+    // Explicit because I do not trust Android devs and so should you
+    compose = true
+    aidl = false
+    renderScript = false
+    shaders = false
+    buildConfig = true
+    resValues = false
+  }
+  packaging.resources.excludes.add("/META-INF/{AL2.0,LGPL2.1}")
 }
